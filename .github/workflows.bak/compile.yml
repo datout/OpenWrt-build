@@ -5,6 +5,7 @@
 
 name: 缂栬瘧涓荤▼搴?
 on:
+  workflow_dispatch:
   push:
     branches:
       - main

@@ -1,9 +1,9 @@
 #
-# 编译主程序,请勿修改文件名称（compile.yml）
+# 编译主程�?请勿修改文件名称（compile.yml�?
 #
 
 
-name: 编译主程序
+name: 编译主程�?
 on:
   push:
     branches:
@@ -48,8 +48,8 @@ jobs:
     - name: 准备结束
       uses: actions/checkout@v4
 
-    - name: 检测密匙/文件/版本
-      uses: 281677160/common@mishi
+    - name: 检测密�?文件/版本
+      uses: ./.github/actions/mishi
         
     - name: 部署编译环境
       env:
@@ -69,17 +69,17 @@ jobs:
     
     - name: 公告
       continue-on-error: true
-      uses: 281677160/common@message
+      uses: ./.github/actions/message
  
     - name: 运行自定义文件和其他
-      uses: 281677160/common@need
+      uses: ./.github/actions/need
         
     - name: 编译信息
       continue-on-error: true
       if: env.COMPILATION_INFORMATION == 'true'
-      uses: 281677160/common@message
+      uses: ./.github/actions/message
         
-    - name: 缓存加速
+    - name: 缓存加�?
       if: env.CACHEWRTBUILD_SWITCH == 'true'
       uses: stupidloud/cachewrtbuild@main
       with:
@@ -87,13 +87,13 @@ jobs:
         mixkey: "${{ env.TARGET_PROFILE }}"
         prefix: ${{ github.workspace }}/openwrt
         
-    - name: 下载软件包
+    - name: 下载软件�?
       id: package
       run: |
         cd openwrt
         make download -j8
     
-    - name: 开始编译固件
+    - name: 开始编译固�?
       id: compile
       if: steps.package.outcome == 'success'
       run: |
@@ -103,20 +103,20 @@ jobs:
 
     - name: 自动打包armsr_rootfs_tar_gz
       if: steps.compile.outcome == 'success' && env.ONLINE_FIRMWARE == 'true'
-      uses: 281677160/common@aarch
+      uses: ./.github/actions/aarch
 
-    - name: 整理固件文件夹(需配合diy-part.sh设定使用)
+    - name: 整理固件文件�?需配合diy-part.sh设定使用)
       continue-on-error: true
       if: steps.compile.outcome == 'success'
       run: |
         cd openwrt
         bash ${{ env.COMMON_SH }} Diy_firmware
 
-    - name: 发送[在线更新固件]至云端
+    - name: 发送[在线更新固件]至云�?
       continue-on-error: true
       if: steps.compile.outcome == 'success' && env.UPDATE_FIRMWARE_ONLINE == 'true'
-      uses: 281677160/common@cloud
+      uses: ./.github/actions/cloud
         
     - name: 上传,发布,信息通知
       if: steps.compile.outcome == 'success'
-      uses: 281677160/common@uploads
+      uses: ./.github/actions/uploads

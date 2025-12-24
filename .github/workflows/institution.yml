@@ -1,12 +1,12 @@
 #
-# 在[build]文件夹里面创建文件夹程序,请勿修改文件名称（institution.yml）
+# 在[build]文件夹里面创建文件夹程序,请勿修改文件名称（institution.yml�?
 #
 # 创建文件夹需要用到REPO_TOKEN密匙
 #
 # REPO_TOKEN密匙制作教程：https://git.io/jm.md
 #
 
-name: 创建文件夹
+name: 创建文件�?
 on:
   workflow_dispatch:
     inputs:
@@ -23,7 +23,7 @@ on:
           - 'Xwrt'
           - 'Mt798x'
       establish_name:
-        description: '输入您需要创建的文件夹名称'
+        description: '输入您需要创建的文件夹名�?
         required: true
         default: ''
 env:
@@ -42,8 +42,8 @@ jobs:
     - name: 准备结束
       uses: actions/checkout@v4
       
-    - name: 密匙检测
-      uses: 281677160/common@yaoshi
+    - name: 密匙检�?
+      uses: ./.github/actions/yaoshi
       
     - name: 部署环境
       env:
@@ -56,7 +56,7 @@ jobs:
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
         
-    - name: 创建文件夹
+    - name: 创建文件�?
       if: env.REPO_TOKEN
       run: |
         cd $GITHUB_WORKSPACE
@@ -86,7 +86,7 @@ jobs:
         git commit -m "Update $(date +%Y-%m%d-%H%M%S)"
         git push --quiet "https://${{ secrets.REPO_TOKEN }}@github.com/${{github.repository}}" HEAD:main
         if [[ $? -ne 0 ]]; then
-          echo "${{ inputs.establish_name }}文件夹创建失败"
+          echo "${{ inputs.establish_name }}文件夹创建失�?
         else
-          echo "${{ inputs.establish_name }}文件夹创建完成"
+          echo "${{ inputs.establish_name }}文件夹创建完�?
         fi

@@ -1,7 +1,7 @@
 #
-# 请大家记住拉取的是我的 281677160/build-actions 仓库，拉取的是其他仓库有问题，别问我，我也不清楚什么问题
+# 请大家记住拉取的是我�?281677160/build-actions 仓库，拉取的是其他仓库有问题，别问我，我也不清楚什么问�?
 #
-# 因为SSH连接配置固件直接编译，会给github停止编译的,所以要另外触发启动编译程序
+# 因为SSH连接配置固件直接编译，会给github停止编译�?所以要另外触发启动编译程序
 #
 # 一般情况下都能触发启动编译的，除非没设置好密匙，或者密匙过期了，或者密匙错误之类的
 #
@@ -59,29 +59,29 @@ on:
         default: 'false'
         type: boolean
       UPLOAD_FIRMWARE:
-        description: '上传固件到 Github Artifacts'
+        description: '上传固件�?Github Artifacts'
         required: false
         default: 'true'
         type: boolean
       UPLOAD_RELEASE:
-        description: '发布固件到 Github Releases'
+        description: '发布固件�?Github Releases'
         required: false
         default: 'false'
         type: boolean
       CACHEWRTBUILD_SWITCH:
-        description: '缓存加速编译'
+        description: '缓存加速编�?
         required: false
         default: 'true'
         type: boolean
       UPDATE_FIRMWARE_ONLINE:
-        description: '在线更新固/打包aarch64系列为img固件'
+        description: '在线更新�?打包aarch64系列为img固件'
         required: false
         default: 'true'
         type: boolean
 
 
 # 如若启动定时编译的话,配置文件是设置对应文件夹内的settings.ini文件
-# 定时触发开启开始编译(把下面两个#去掉开启,时间设置请看定时开启编译说明)
+# 定时触发开启开始编�?把下面两�?去掉开�?时间设置请看定时开启编译说�?
 #  schedule:
 #   - cron: 35 18 * * *
 
@@ -106,14 +106,14 @@ jobs:
       matrix:
         target: [Lede]
         
-        # 请勿对 target: [Lede] 做任何修改
+        # 请勿�?target: [Lede] 做任何修�?
         
     steps:
     - name: 准备结束
       uses: actions/checkout@v4
       
-    - name: 检测密匙/文件/版本
-      uses: 281677160/common@mishi
+    - name: 检测密�?文件/版本
+      uses: ./.github/actions/mishi
 
     - name: 部署编译环境
       env:
@@ -136,16 +136,16 @@ jobs:
     
     - name: 公告
       continue-on-error: true
-      uses: 281677160/common@message
+      uses: ./.github/actions/message
  
     - name: 运行其他和SSH远程(make menuconfig)
       id: info
-      uses: 281677160/common@need
+      uses: ./.github/actions/need
         
     - name: 编译信息
       continue-on-error: true
       if: env.COMPILATION_INFORMATION == 'true'
-      uses: 281677160/common@message
+      uses: ./.github/actions/message
     
     - name: 清理releases和workflows
       continue-on-error: true
@@ -163,6 +163,6 @@ jobs:
         repo: ${{ github.repository }}
         gh_token: ${{ secrets.REPO_TOKEN }}
         
-    - name: 触发启动"${{ matrix.target }}"开始编译
+    - name: 触发启动"${{ matrix.target }}"开始编�?
       if: steps.info.outcome == 'success'
-      uses: 281677160/common@trigger
+      uses: ./.github/actions/trigger

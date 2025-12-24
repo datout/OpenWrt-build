@@ -1,5 +1,5 @@
 #
-# 打包Amlogic/Rockchip固件,请勿修改文件名称（packaging.yml）
+# 打包Amlogic/Rockchip固件,请勿修改文件名称（packaging.yml�?
 #
 
 name: 打包armsr_rootfs_tar_gz
@@ -176,7 +176,7 @@ on:
           - zk-r39a
           - zysj
       amlogic_kernel:
-        description: '输入内核,比如：6.1.120 或 6.1.120_6.12.15'
+        description: '输入内核,比如�?.1.120 �?6.1.120_6.12.15'
         required: true
         default: '6.1.120_6.12.15'
       kernel_usage:
@@ -190,21 +190,21 @@ on:
           - 'dev'
           - 'beta'
       openwrt_size:
-        description: '设置rootfs[单位：MiB](不想设置可留空)'
+        description: '设置rootfs[单位：MiB](不想设置可留�?'
         required: false
         default: '512/2560'
       auto_kernel:
-        description: '使用最新版内核(比如您设置6.1.120在6.1.x系列最新是6.1.130,则用6.1.130)'
+        description: '使用最新版内核(比如您设�?.1.120�?.1.x系列最新是6.1.130,则用6.1.130)'
         required: false
         default: 'true'
         type: boolean
       UPLOAD_FIRMWARE:
-        description: '上传固件到 Github Artifacts'
+        description: '上传固件�?Github Artifacts'
         required: false
         default: 'false'
         type: boolean
       UPLOAD_RELEASE:
-        description: '发布固件到 Github Releases'
+        description: '发布固件�?Github Releases'
         required: false
         default: 'true'
         type: boolean
@@ -237,8 +237,8 @@ jobs:
     - name: 准备结束
       uses: actions/checkout@v4
 
-    - name: 密匙检测
-      uses: 281677160/common@yaoshi
+    - name: 密匙检�?
+      uses: ./.github/actions/yaoshi
 
     - name: 整理变量
       run: |
@@ -255,7 +255,7 @@ jobs:
         echo "UPLOAD_FIRMWARE=${{ inputs.UPLOAD_FIRMWARE }}" >> $GITHUB_ENV
         echo "UPLOAD_RELEASE=${{ inputs.UPLOAD_RELEASE }}" >> $GITHUB_ENV
         echo "date=$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
-        echo "Tongzhi_Date=$(date +%Y年%m月%d日)" >> ${GITHUB_ENV}
+        echo "Tongzhi_Date=$(date +%Y�?m�?d�?" >> ${GITHUB_ENV}
 
     - name: 部署编译环境
       env:
@@ -274,7 +274,7 @@ jobs:
         echo "HOME_PATH=${GITHUB_WORKSPACE}/openwrt" >> $GITHUB_ENV
         echo "FIRMWARE_PATH=${GITHUB_WORKSPACE}/openwrt/bin/targets" >> $GITHUB_ENV
 
-    - name: 检查文件
+    - name: 检查文�?
       run: |
         cd ${HOME_PATH}
         curl -s -H "Authorization: Bearer ${{ env.REPO_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases/tags/targz > aarch
@@ -297,8 +297,8 @@ jobs:
 
     - name: 自动打包armsr_rootfs_tar_gz
       id: compile
-      uses: 281677160/common@aarch
+      uses: ./.github/actions/aarch
 
     - name: 上传,发布
       if: steps.compile.outcome == 'success'
-      uses: 281677160/common@uploads
+      uses: ./.github/actions/uploads

@@ -1,6 +1,7 @@
 - cd openwrt && make menuconfig
 - 从(https://github.com/281677160/build-actions)来的，只是把common仓库合并了。
 
+
 <details>
 <summary>⬆️更新说明（2025年12月25号）</summary>
 
@@ -12,14 +13,11 @@
  <br><br>
 从(https://github.com/281677160/build-actions/issues/223)Fork来的。
  
-
-
-
  
  ---
  <br>
   2023年6月16号
- <br>
+ <br><br>
  
  修复个别源码不能编译N1固件的问题
  
@@ -45,12 +43,11 @@ CONFIG_TARGET_armsr=y
 CONFIG_TARGET_armsr_armv8=y
 CONFIG_TARGET_armsr_armv8_DEVICE_generic=y
  ````
+</details> 
  
- 以上机型文件仅供参考，自己在对应源码SSH连接多看吧
  ---
 
 
----
 
 <details>
 <summary>🔎各种教程</summary>
